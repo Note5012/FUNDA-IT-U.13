@@ -107,11 +107,11 @@ body{
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
+    background-blend-mode: soft-light, normal;
     color: var(--gray-web);
     font-size: 1.6rem;
     font-weight: var(--fw-500);
     line-height: 1.6;
-    /*height: 300vh;*/
 }
 
 .site-footer {
@@ -279,12 +279,28 @@ body{
 .hero {padding-block-start: 0;}
 
 .hero-card {
-    background: linear-gradient(90deg,rgba(0, 47, 156, 1) 0%, rgba(1, 148, 60, 1) 100%);
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(90deg, rgba(7, 59, 156, 1) 0%, rgba(20, 170, 115, 1) 100%);
     padding-left: 50px;
     background-position: 40%;
 }
 
+.hero-card::after {
+    content: "";
+    position: absolute;
+    right: -70px;
+    top: -60px;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: rgba(125, 224, 255, 0.18);
+    filter: blur(18px);
+}
+
 .hero-card .card-content {
+    position: relative;
+    z-index: 1;
     padding-left: 50px;
 }
 
@@ -344,17 +360,35 @@ body{
     min-width: 0;
 }
 
-.name{
-    display: flex;
-    position: relative;
-    color: whitesmoke;
-    right: -1200px;
-    bottom: -100px;
-    background-color:rgba(0, 0, 0, 0.6);
-    border-radius: 8px;
-    width: 100px;
-    border: 1px solid white;
+.name {
+    position: absolute;
+    right: 28px;
+    bottom: 22px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 999px;
+    background: rgba(5, 20, 36, 0.45);
+    color: #eef9ff;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(8px);
 }
+
+.name::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #7de0ff;
+    box-shadow: 0 0 14px rgba(125, 224, 255, 0.9);
+}
+
 .full-page {
     width: 100%;
 }
@@ -686,6 +720,11 @@ body{
     .process-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
+
+    .impact-grid,
+    .responsibility-list {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media (max-width: 480px) {
@@ -696,6 +735,10 @@ body{
 
     .process-card {
         height: auto;
+    }
+
+    .responsibility-list > div {
+        flex-direction: column;
     }
 }
 
@@ -723,6 +766,118 @@ body{
     content: "•";
     font-size: 18px;
     line-height: 1.3;
+}
+
+.impact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin: 26px 0 30px;
+}
+
+.impact-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 22px 20px 18px;
+    border: 1px solid rgba(125, 149, 190, 0.28);
+    border-radius: 18px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(237, 245, 255, 0.42));
+    box-shadow: 0 14px 32px rgba(21, 31, 49, 0.08);
+    overflow: hidden;
+}
+
+.impact-card::before {
+    content: "";
+    position: absolute;
+    inset: auto -22% -38% auto;
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    background: rgba(113, 217, 255, 0.12);
+}
+
+.impact-card > * {
+    position: relative;
+    z-index: 1;
+}
+
+.impact-card h2 {
+    margin: 0;
+    color: #1d2a3d;
+    font-size: 1.9rem;
+    line-height: 1.45;
+}
+
+.impact-card .impact-symbol {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #eff6ff, #dfeaff);
+    color: #3762d5;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.impact-positive .impact-symbol {
+    background: linear-gradient(135deg, #ecfff4, #d8f7e6);
+    color: #1d925c;
+}
+
+.impact-caution .impact-symbol {
+    background: linear-gradient(135deg, #fff8eb, #ffe7b8);
+    color: #c4790d;
+}
+
+.impact-card .content-list {
+    margin: 0;
+}
+
+.impact-card .content-list li {
+    font-size: 1.4rem;
+    line-height: 1.8;
+}
+
+.responsibility-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin: 24px 0 30px;
+}
+
+.responsibility-list > div {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 16px 18px;
+    border: 1px solid rgba(121, 143, 179, 0.25);
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.74), rgba(244, 247, 255, 0.5));
+    box-shadow: 0 10px 24px rgba(21, 31, 49, 0.06);
+}
+
+.responsibility-list span {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #edf4ff, #dfeaff);
+    color: #355ec9;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.responsibility-list p {
+    margin: 0;
+    color: #394961;
+    font-size: 1.4rem;
+    line-height: 1.75;
 }
 
 .notice-box {
@@ -1149,8 +1304,9 @@ body{
 
 body {
     background-image:
-        linear-gradient(135deg, rgba(5, 14, 32, 0.78), rgba(13, 35, 62, 0.68)),
+        linear-gradient(135deg, rgba(5, 14, 32, 0.9), rgba(13, 35, 62, 0.84)),
         url("https://www.fitm.kmutnb.ac.th/images/slideshow/FITM3.jpg");
+    background-blend-mode: normal;
     color: #dce8f7;
 }
 
